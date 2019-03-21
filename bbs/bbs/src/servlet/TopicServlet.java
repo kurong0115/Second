@@ -29,7 +29,7 @@ import utils.Myutil;
 
 
 @WebServlet("/topic")
-public class topicServlet extends HttpServlet {
+public class TopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	Topic topic =new Topic();
@@ -37,7 +37,7 @@ public class topicServlet extends HttpServlet {
 	TopicBiz tb=new TopicBiz();
 	ReplyBiz rb=new ReplyBiz();
 	BoardBiz bb=new BoardBiz();
-    public topicServlet() {
+    public TopicServlet() {
         super();
     }
     

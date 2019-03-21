@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import biz.BizException;
 import biz.WordBiz;
 
 
@@ -35,11 +36,15 @@ public class WordServlet extends HttpServlet {
 
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String word=request.getParameter("noword");
-		int num=wb.add(word);
-		if(num>0) {
+		response.setContentType("text/html; charset=UTF-8");
+		try {
+			wb.add(word);
 			response.getWriter().write(1);
-		}else{
-			response.getWriter().write(0);
+		} catch (BizException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			response.getWriter().write(e.getMessage().toString());
 		}
 	}
 	

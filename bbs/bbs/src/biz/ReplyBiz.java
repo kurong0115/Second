@@ -101,10 +101,11 @@ public class ReplyBiz {
 	 * @throws BizException 
 	 */
 	public void delReply(Reply reply) throws BizException {
-		int delReply = rd.delReply(reply);
-		if(delReply<0) {
-			throw new BizException("·þÎñÆ÷·±Ã¦,É¾³ýÊ§°Ü");			
+		if(reply.getReplyid()==null) {
+			throw new BizException("»ØÌû²»´æÔÚ,É¾³ýÊ§°Ü");	
 		}
+		rd.delReply(reply);
+		
 	}
 	
 	/**

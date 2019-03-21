@@ -47,6 +47,10 @@
 			alert("用户名已存在");
 			return false;
 		}
+		if (document.getElementById("info2").innerHTML == "邮箱已存在") {
+			alert("邮箱已存在");
+			return false;
+		}
 	}
 	
 	function isSamePwd() {
@@ -71,6 +75,24 @@
 			}
 		},"text");
 	}
+	
+	function isEmail(input) {
+		$.post(path+"/bbsUser",{"flag":"isEmail","email":input.value},function(data){
+			if(data.trim()=="1"){
+				document.getElementById("info2").style.color="red";
+				document.getElementById("info2").innerHTML="邮箱已被注册";
+				document.getElementById("getCode").style.display="none";
+			}else if(data.trim()=="2"){
+				document.getElementById("info2").style.color="red";
+				document.getElementById("info2").innerHTML="邮箱不能为空";
+				document.getElementById("getCode").style.display="none";
+			}else{
+				document.getElementById("info2").style.color="green";
+				document.getElementById("info2").innerHTML="邮箱未被注册";
+				document.getElementById("getCode").style.display="inline-block";
+			}
+		},"text");
+	}
 </script>
 
 
@@ -89,23 +111,24 @@
 	action="<%=request.getContextPath() %>/bbsUser" method="post">
 		<input type="hidden" name="flag" value="userReg">
 		<br/>用&nbsp;户&nbsp;名 &nbsp;
-			<INPUT class="input" tabIndex="1" tryp="text" maxLength="20" size="20" name="uName" onblur="isusername(this)">
+			<INPUT class="input" tabIndex="1" type="text" maxLength="20" size="20" name="uName" oninput="isusername(this)" required="required">
 			<font id="info" ></font>
 		<br/>密&nbsp;&nbsp;&nbsp;&nbsp;码 &nbsp;&nbsp;&nbsp;
 			<INPUT class="input" tabIndex="2" type="password" maxLength="20" size="20" name="uPass">
 		<br/>重复密码&nbsp;
-			<INPUT class="input" tabIndex="3" type="password" maxLength="20" size="20" name="uPass1" onblur="isSamePwd()">
+			<INPUT class="input" tabIndex="3" type="password" maxLength="20" size="20" name="uPass1" oninput="isSamePwd()" required="required">
 			<font style="color: red;" id="samePwd"></font>
 		<br/>邮&nbsp;&nbsp;&nbsp;&nbsp;箱 &nbsp;&nbsp;&nbsp;
-			<INPUT class="input" tabIndex="4" type="email" maxLength="20" size="20" name="email" id="email">
-			<a href="javascript:void(0)" onclick="sendcode()">获取验证码</a>
-		</br>验&nbsp;证&nbsp;码 &nbsp;
-			<INPUT class="input" tabIndex="5" type="text" maxLength="20" size="20" name="regcode">
+			<INPUT class="input" tabIndex="4" type="email" maxLength="20" size="20" name="email" id="email" required="required" oninput="isEmail(this)" >
+			<a href="javascript:void(0)" onclick="sendcode()" style="display: none;" id="getCode">获取验证码</a>
+			<font style="color: red;" id="info2"></font>
+		<br/>验&nbsp;证&nbsp;码 &nbsp;
+			<INPUT class="input" tabIndex="5" type="text" maxLength="20" size="20" name="regcode" required="required">
 		<br/>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别 &nbsp;
 			女<input type="radio" name="gender" value="1">
 			男<input type="radio" name="gender" value="2" checked="checked" />
 		<br/>请选择头像 <br/>
-		<image src="<%=request.getContextPath() %>/image/head/1.gif"/><input type="radio" name="head" value="1.gif" checked="checked">
+		<img src="<%=request.getContextPath() %>/image/head/1.gif"/><input type="radio" name="head" value="1.gif" checked="checked">
 		<img src="<%=request.getContextPath() %>/image/head/2.gif"/><input type="radio" name="head" value="2.gif">
 		<img src="<%=request.getContextPath() %>/image/head/3.gif"/><input type="radio" name="head" value="3.gif">
 		<img src="<%=request.getContextPath() %>/image/head/4.gif"/><input type="radio" name="head" value="4.gif">

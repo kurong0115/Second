@@ -169,11 +169,24 @@ public class UserDao {
 	 * @param uname
 	 * @return
 	 */
-	public int resetpwd(String upass,String uname) {
-		String sql = "UPDATE tbl_user SET upass = ? WHERE uname = ?";
-		return db.executeUpdate(sql, upass,uname);
+	public int resetpwd(String upass,String email) {
+		String sql = "UPDATE tbl_user SET upass = ? WHERE email = ?";
+		return db.executeUpdate(sql, upass,email);
 	}
 	
 
+	/**
+	 * ≤È—Ø” œ‰ «∑Ò¥Ê‘⁄
+	 * @return
+	 */
+	public int isEmail(String email) {
+		String sql="select uid from tbl_user where email=?";
+		List<Map<String,Object>> executeQuery = db.executeQuery(sql,email);
+		if(executeQuery.size()>0) {
+			return 1;
+		}else {
+			return 0;
+		}
+	}
 }
 

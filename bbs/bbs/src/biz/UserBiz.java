@@ -19,11 +19,18 @@ public class UserBiz {
 	 * @throws BizException
 	 */
 	public User userLogin(User user,String code,String valCode) throws BizException {
-		List<User> userLogin = ud.userLogin(user);
+		
 		
 		if(!code.equalsIgnoreCase(valCode)) {
 			throw new BizException("验证码错误");
-		}else if(userLogin.size()==0){
+		}else if(user.getUname()==null || user.getUname().isEmpty() ) {
+			throw new BizException("用户名或密码错误");
+		}else if(user.getUpass()==null || user.getUpass().isEmpty() ){
+			throw new BizException("用户名或密码错误");
+		}
+		
+		List<User> userLogin = ud.userLogin(user);
+		if(userLogin.size()==0){
 			throw new BizException("用户名或密码错误");
 		}else {
 			return userLogin.get(0);
@@ -38,6 +45,7 @@ public class UserBiz {
 	 * @throws BizException
 	 */
 	public UserInfo selectAll(int uid) throws BizException {
+
 		UserInfo selectAll = ud.selectAll(uid);
 		return selectAll;
 	}
@@ -50,14 +58,20 @@ public class UserBiz {
 	 * @throws BizException
 	 */
 	public void reg(User user,String code,String regcode) throws BizException {
-		int regUser = ud.regUser(user);
 		
 		if(!code.equalsIgnoreCase(regcode)) {
 			throw new BizException("验证码错误");
-		}else if(regUser<0){
-			throw new BizException("服务器繁忙，请稍后再试");
+		}else if(user.getUname()==null || user.getUname().isEmpty() ) {
+			throw new BizException("用户名或密码错误");
+		}else if(user.getUpass()==null || user.getUpass().isEmpty() ){
+			throw new BizException("用户名或密码错误");
 		}
 		
+		
+		int regUser = ud.regUser(user);
+		if(regUser<0) {
+			throw new BizException("注册失败");
+		}
 		List<Map<String,Object>> list=ud.getBasicInfo(user.getUname(), user.getUpass());
 		Integer uid=(Integer) list.get(0).get("uid");
 		
@@ -73,6 +87,10 @@ public class UserBiz {
 	 * @throws BizException
 	 */
 	public int isUserName(User user) throws BizException {
+		if(user.getUname()==null) {
+			throw new BizException("用户名不能为空");
+		}
+
 		List<Map<String,Object>> userName = ud.isUserName(user);
 		
 		if(userName.size()>0) {
@@ -109,13 +127,18 @@ public class UserBiz {
 	 * @throws BizException 
 	 */
 	public void pwdchange(User user, String newpass, String upass) throws BizException {
-		if(!upass.equals(user.getUpass())) {
+		if(upass==null) {
+			throw new BizException("新密码不能为空");
+		}else if(newpass==null) {
+			throw new BizException("原密码不能为空");
+		}
+		else if(!upass.equals(user.getUpass())) {
 			throw new BizException("原密码错误，请重新输入");
 		}
 		
 		Integer result = ud.pwdchange(user.getUid(),newpass);
 		if( result < 0  ){//修改失败
-			throw new BizException("由于服务器原因，密码修改失败");
+			throw new BizException("修改失败");
 		}
 	}
 	
@@ -123,18 +146,38 @@ public class UserBiz {
 	 * 重置密码
 	 * @param upass
 	 * @param uname
+	 * @param code22 
 	 * @return
 	 * @throws BizException 
 	 */
-	public void resetpwd(String upass, String uname, String code1, String code2) throws BizException {
+	public void resetpwd(String upass, String upass1,String email, String code1, String code2 ) throws BizException {
 		if( !code1.equals(code2) ) {//两次输入的验证码相同，可以进行修改密码
 			throw new BizException("验证码错误");
+		}else if(upass==null) {
+			throw new BizException("新密码不能为空");
+		}else if(!upass1.equals(upass1)) {
+			throw new BizException("两次密码不一致");
 		}
-		int resetpwd = ud.resetpwd(upass, uname);
+		int resetpwd = ud.resetpwd(upass, email);
 		if(resetpwd<0) {
-			throw new BizException("服务器繁忙，密码重置失败。");
+			throw new BizException("密码重置失败。");
 		}
 
+	}
+
+	/**
+	 * 邮箱是否存在
+	 * @param email
+	 * @throws BizException 
+	 */
+	public int isEmail(String email) throws BizException {
+		if(email==null) {
+			throw new BizException("邮箱不能为空");
+		}
+		
+		int email2 = ud.isEmail(email);
+		
+		return email2;
 	}
 
 	

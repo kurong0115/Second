@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 import java.util.Map;
 
+import bean.User;
 import bean.collect;
 import utils.JDBCHelp;
 import utils.Myutil;
@@ -68,5 +69,16 @@ public class CollectDao {
 		String sql="delete from tbl_collect where cid=?";
 		
 		return db.executeUpdate(sql, col.getCid());
+	}
+
+	/**
+	 * 查出当前用户收藏帖子的总数
+	 * @param user
+	 */
+	public int findAllCollect(User user) {
+		String sql="select count(cid) as total from tbl_collect where uid=?";
+		List<Map<String,Object>> executeQuery = db.executeQuery(sql, user.getUid());
+		int total=Integer.parseInt( executeQuery.get(0).get("total").toString()) ;
+		return total;
 	}
 }

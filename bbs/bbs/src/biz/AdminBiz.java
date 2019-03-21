@@ -20,10 +20,11 @@ public class AdminBiz {
 	 * @throws BizException 
 	 */
 	public void releaseById(Integer uid) throws BizException {
-		int releasePost = ud.releasePost(uid);
-		if(releasePost<=0) {
-			throw new BizException("服务器繁忙");
+		if(uid<0) {
+			throw new BizException("用户不存在");
 		}
+		ud.releasePost(uid);
+		
 	}
 
 	/**
@@ -33,6 +34,14 @@ public class AdminBiz {
 	 * @throws BizException 
 	 */
 	public TblAdmin login(TblAdmin admin) throws BizException {
+		
+		if(admin.getRaname()==null || admin.getRaname().isEmpty() ) {
+			throw new BizException("用户名或密码错误");
+		}else if(admin.getRapwd()==null || admin.getRapwd().isEmpty() ){
+			throw new BizException("用户名或密码错误");
+		}
+		
+		
 		TblAdmin login = ad.login(admin);
 		if(login==null) {
 			throw new BizException("用户名或密码错误");
@@ -52,8 +61,13 @@ public class AdminBiz {
 	 * 删除敏感词
 	 * @param sid
 	 * @return
+	 * @throws BizException 
 	 */
-	public int delWordById(String sid) {
-		return sd.delWordById(sid);
+	public void delWordById(String sid) throws BizException {
+		if(sid==null) {
+			throw new BizException("敏感词不存在");
+		}
+		
+		sd.delWordById(sid);
 	}
 }

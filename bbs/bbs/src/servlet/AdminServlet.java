@@ -22,12 +22,12 @@ import dao.UserDao;
 
 @WebServlet("/admin")
 @MultipartConfig
-public class adminServlet extends HttpServlet {
+public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private UserDao ud=new UserDao();
 
     AdminBiz ab=new AdminBiz();
-    public adminServlet() {
+    public AdminServlet() {
         
     }
 
@@ -67,12 +67,16 @@ public class adminServlet extends HttpServlet {
 		String sid=request.getParameter("sid");
 		System.out.println("sid"+sid);
 		System.out.println("删除对应的敏感词");
-		int num=ab.delWordById(sid);		
-		if(num>0) {
+
+		try {
+			ab.delWordById(sid);
 			response.getWriter().write("ok");
-		}else {
+		} catch (BizException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			response.getWriter().write("no");
 		}		
+				
 	}
 
 	/**

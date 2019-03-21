@@ -35,9 +35,6 @@ public class TopicBiz {
 	public PageBean<Topic> findPageBean(Topic topic) throws BizException {
 		PageBean<Topic> findPageBean = td.findPageBean(topic);
 		
-		if(findPageBean==null) {
-			throw new BizException("服务器繁忙，请稍后再试");
-		}
 		return findPageBean;
 	}
 
@@ -110,9 +107,6 @@ public class TopicBiz {
 	 */
 	public Topic topicdetail(Topic topic) throws BizException {
 		Topic topicdetail = td.topicdetail(topic);
-		if(topicdetail==null) {
-			throw new BizException("服务器繁忙");	
-		}
 		return topicdetail;
 	}
 	
@@ -123,10 +117,10 @@ public class TopicBiz {
 	 * @throws BizException 
 	 */
 	public void delTopic(Topic topic) throws BizException {
-		int delTopic = td.delTopic(topic);
-		if(delTopic<0) {
-			throw new BizException("服务器繁忙，删除失败");
+		if(topic.getTopicid()==null) {
+			throw new BizException("帖子不存在，删除失败");
 		}
+		td.delTopic(topic);
 		
 	}
 	
@@ -138,9 +132,7 @@ public class TopicBiz {
 	 */
 	public List<Topic> findHostTopic(Topic topic) throws BizException {
 		List<Topic> findHostTopic = td.findHostTopic(topic);
-		if(findHostTopic==null) {
-			throw new BizException("服务器繁忙，请稍后再试");
-		}
+		
 		return findHostTopic;
 	}
 	
@@ -151,9 +143,6 @@ public class TopicBiz {
 	 */
 	public List<Topic> findAllHostTopic() throws BizException {
 		List<Topic> findAllHostTopic = td.findAllHostTopic();
-		if(findAllHostTopic==null) {
-			throw new BizException("服务器繁忙，请稍后再试");
-		}
 		return findAllHostTopic;
 	}
 	
@@ -164,9 +153,6 @@ public class TopicBiz {
 	 */
 	public List<User> personTop() throws BizException {
 		List<User> personTop = td.personTop();
-		if(personTop==null) {
-			throw new BizException("服务器繁忙，请稍后再试");
-		}
 		return personTop;
 	}
 	
@@ -178,9 +164,7 @@ public class TopicBiz {
 	 */
 	public List<Topic> personTopTopic(Topic topic) throws BizException {
 		List<Topic> personTopTopic = td.personTopTopic(topic);
-		if(personTopTopic==null) {
-			throw new BizException("服务器繁忙，请稍后再试");
-		}
+		
 		return personTopTopic;
 	}
 	

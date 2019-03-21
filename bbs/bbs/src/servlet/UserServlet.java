@@ -21,13 +21,13 @@ import utils.Myutil;
 
 
 @WebServlet("/bbsUser")
-public class userServlet extends HttpServlet {
+public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	UserBiz ub=new UserBiz();
 	
 	
-    public userServlet() {
+    public UserServlet() {
         super();
     }
 
@@ -66,11 +66,37 @@ public class userServlet extends HttpServlet {
 		case "resetpwd":
 			resetpwd(request,response);
 			break;
+		case "isEmail":
+			isEmail(request,response);
+			break;
 		default:
 			break;
 		}
 	}
 	
+	/**
+	 * 邮箱是否存在
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	private void isEmail(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String email = request.getParameter("email");
+		
+		try {
+			int email2 = ub.isEmail(email);
+			if(email2==1) {
+				response.getWriter().append("1");
+			}else if(email2==0) {
+				response.getWriter().append("0");
+			}
+		} catch (BizException e) {
+			e.printStackTrace();
+			response.getWriter().append("2");
+		}
+	}
+
+
 	/**
 	 * 重置密码的方法
 	 * @param request
@@ -83,15 +109,15 @@ public class userServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String code1 = (String)session.getAttribute("code");//随机生成的验证码
 		String code2 = request.getParameter("mycode");//用户输入的验证码
-		String uname = request.getParameter("uname");
 		String upass = request.getParameter("upass");
-		
+		String upass1 = request.getParameter("upass1");
+		String email = request.getParameter("email");
 		
 		try {
-			ub.resetpwd(upass, uname,code1,code2);
-			String msg = "密码重置成功";
-			request.setAttribute("msg", msg);
-			request.getRequestDispatcher("pages/login.jsp").forward(request, response);
+			ub.resetpwd(upass,upass1, email,code1,code2);
+			String msg = "密码重置成功,请重新登录";
+			request.setAttribute("success", msg);
+			request.getRequestDispatcher("pages/resetpwd.jsp").forward(request, response);
 		} catch (BizException e) {			
 			e.printStackTrace();
 			request.setAttribute("msg", e.getMessage());

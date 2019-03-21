@@ -12,25 +12,32 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.Board;
+import bean.User;
+import bean.collect;
 import biz.BizException;
 import biz.BoardBiz;
+import biz.CollectBiz;
 
 
 @WebServlet("/init")
-public class initServlet extends HttpServlet {
+public class InitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     BoardBiz bb=new BoardBiz();
-    public initServlet() {
+    CollectBiz cb=new CollectBiz();
+    public InitServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map<Integer, List<Board>> allBoard;
 		try {
-			allBoard = bb.findAllBoard();
 			HttpSession session = request.getSession();
+			
+			User user = (User) session.getAttribute("user");
+			allBoard = bb.findAllBoard();
+			int collectTotal=cb.findAllCollect(user);
+			session.setAttribute("collectTotal", collectTotal);
 			session.setAttribute("boardMap", allBoard);
 			request.getRequestDispatcher("pages/show.jsp").forward(request, response);
 		} catch (BizException e) {

@@ -17,12 +17,12 @@ import biz.CollectBiz;
 
 
 @WebServlet("/collect")
-public class collectServlet extends HttpServlet {
+public class CollectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	CollectBiz cb=new CollectBiz();
 	
-    public collectServlet() {
+    public CollectServlet() {
         super();
 
     }
@@ -69,11 +69,13 @@ public class collectServlet extends HttpServlet {
 		int uid = Integer.parseInt(request.getParameter("uid"));
 		collect col=new collect();
 		col.setUid(uid);
-		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
 		List<collect> list;
 		try {
 			list = cb.findMyCollect(col);
-			HttpSession session = request.getSession();
+			int collectTotal=cb.findAllCollect(user);
+			session.setAttribute("collectTotal", collectTotal);
 			session.setAttribute("myCollect", list);
 
 			request.getRequestDispatcher("/pages/myCollect.jsp").forward(request, response);
@@ -98,8 +100,11 @@ public class collectServlet extends HttpServlet {
 		col.setBoardid(boardid);
 		col.setUid(user.getUid());
 		try {
+			
 			cb.addCollect(col);
 			request.setAttribute("msg", " ’≤ÿ≥…π¶");
+			int collectTotal=cb.findAllCollect(user);
+			session.setAttribute("collectTotal", collectTotal);
 			request.getRequestDispatcher("/pages/detail.jsp").forward(request, response);
 		} catch (BizException e) {
 			e.printStackTrace();

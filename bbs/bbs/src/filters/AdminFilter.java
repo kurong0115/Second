@@ -16,10 +16,10 @@ import javax.servlet.http.HttpSession;
 
 
 @WebFilter("/adminPages/admin.jsp")
-public class adminFilter implements Filter {
+public class AdminFilter implements Filter {
 
    
-    public adminFilter() {
+    public AdminFilter() {
         
     }
 

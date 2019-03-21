@@ -26,10 +26,12 @@ public class BoardBiz {
 	 * @throws BizException 
 	 */
 	public void updateBigBoard(Board board) throws BizException {
-		int updateBigBoard = bd.updateBigBoard(board);
-		if(updateBigBoard<0) {
-			throw new BizException("服务器繁忙，请稍后再试");
+		if(board.getBoardid()<0){
+			throw new BizException("板块不存在");
+		}else if(board.getBoardname()==null) {
+			throw new BizException("板块名不能为空");
 		}
+		bd.updateBigBoard(board);
 		
 	}
 
@@ -40,10 +42,11 @@ public class BoardBiz {
 	 * @throws BizException 
 	 */
 	public void addBigBoard(Board board) throws BizException {
-		int addBigBoard = bd.addBigBoard(board);
-		if(addBigBoard<0) {
-			throw new BizException("服务器繁忙，请稍后再试");
+		if(board.getBoardname()==null) {
+			throw new BizException("板块名不能为空");
 		}
+		
+		bd.addBigBoard(board);
 		
 	}
 
@@ -54,10 +57,11 @@ public class BoardBiz {
 	 * @throws BizException 
 	 */
 	public void delBigBoard(Board board) throws BizException {
-		int delBigBoard = bd.delBigBoard(board);
-		if(delBigBoard<0) {
-			throw new BizException("服务器繁忙，请稍后再试");
+		if(board.getBoardid()<0){
+			throw new BizException("板块不存在");
 		}
+		bd.delBigBoard(board);
+		
 	}
 
 	/**
@@ -69,9 +73,7 @@ public class BoardBiz {
 		
 		
 		Map<Integer, List<Board>> findAllBoard = bd.findAllBoard();
-		if(findAllBoard==null) {
-			throw new BizException("服务器繁忙，请稍后再试");
-		}
+		
 		return findAllBoard;
 	}
 }

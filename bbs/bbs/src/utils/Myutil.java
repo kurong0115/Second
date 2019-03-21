@@ -138,10 +138,10 @@ public class Myutil {
 	
 		String code = String.valueOf((int)(Math.random()*99999)+10000);
 		// 以下变量为用户根据自己的情况设置
-		String smtphost = "smtp.qq.com"; // 发送邮件服务器
-		String user = "869872053@qq.com"; // 邮件服务器登录用户名
-		String password = "fmsktqzlvvngbeae"; // 邮件服务器登录密码
-		String from = "869872053@qq.com"; // 发送人邮件地址
+		String smtphost = ConfigEmail.getInstance().getProperty("smtphost"); // 发送邮件服务器
+		String user = ConfigEmail.getInstance().getProperty("user"); // 邮件服务器登录用户名
+		String password = ConfigEmail.getInstance().getProperty("password"); // 邮件服务器登录密码
+		String from = ConfigEmail.getInstance().getProperty("from"); // 发送人邮件地址
 		String to = email; // 接受人邮件地址
 		String subject = "BBS"; // 邮件标题
 		// 邮件内容
@@ -189,12 +189,14 @@ public class Myutil {
 		return code;
 	}
 	
+	
+	
 	public static void sendemail(String email,Timestamp time) {
 		// 以下变量为用户根据自己的情况设置
-		String smtphost = "smtp.qq.com"; // 发送邮件服务器
-		String user = "869872053@qq.com"; // 邮件服务器登录用户名
-		String password = "fmsktqzlvvngbeae"; // 邮件服务器登录密码
-		String from = "869872053@qq.com"; // 发送人邮件地址
+		String smtphost = ConfigEmail.getInstance().getProperty("smtphost"); // 发送邮件服务器
+		String user = ConfigEmail.getInstance().getProperty("user"); // 邮件服务器登录用户名
+		String password = ConfigEmail.getInstance().getProperty("password"); // 邮件服务器登录密码
+		String from = ConfigEmail.getInstance().getProperty("from"); // 发送人邮件地址
 		String to = email; // 接受人邮件地址
 		String subject = "BBS"; // 邮件标题
 		// 邮件内容

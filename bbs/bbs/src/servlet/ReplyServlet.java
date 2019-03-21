@@ -21,14 +21,14 @@ import biz.replyRedisImpl;
 
 
 @WebServlet("/reply")
-public class replyServlet extends HttpServlet {
+public class ReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	Reply reply=new Reply();
 
 	replyRedisImpl rri=new replyRedisImpl();	
 	ReplyBiz rb=new ReplyBiz();
-    public replyServlet() {
+    public ReplyServlet() {
         super();
 
     }

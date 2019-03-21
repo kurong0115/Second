@@ -2,8 +2,6 @@ package filters;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -17,15 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet Filter implementation class rightFilter
+ * Servlet Filter implementation class userFilter
  */
-@WebFilter(urlPatterns= {"/pages/post.jsp","/pages/answer.jsp"})
-public class rightFilter implements Filter {
+@WebFilter("/pages/personal.jsp")
+public class UserFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public rightFilter() {
+    public UserFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -36,36 +34,19 @@ public class rightFilter implements Filter {
 		// TODO Auto-generated method stub
 	}
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req=(HttpServletRequest) request;
 		HttpSession session=req.getSession();
+		//鍒ゆ柇user瀵硅薄鏄惁鍔犲叆浼氳瘽
 		if(session.getAttribute("user")==null) {
-			
-			//获取
-			String callbackPath = req.getServletPath();
-			Map<String, String[]> map = req.getParameterMap();
-
-			//创建新的map保存参数
-			Map<String, String[]> newmap= new HashMap<String, String[]>();
-			newmap.putAll(map);
-			
-			//保存请求地址和参数
-			session.setAttribute("callbackPath", callbackPath);
-			session.setAttribute("callbackMap", newmap);
-
-			
 			HttpServletResponse res=(HttpServletResponse) response;
 			res.setContentType("text/html; charset=utf-8"); 
 			PrintWriter out = res.getWriter();
-			out.println("<script>alert('您尚未登录');location.href='login.jsp';</script>");
+			//鎻愮ず鐢ㄦ埛鐧诲綍锛屽苟杩斿洖鐧诲綍鐣岄潰
+			out.println("<script>alert('您未登陆');location.href='login.jsp';</script>");
 			out.flush();
-		}else {
-			chain.doFilter(request, response);
 		}
-		
+		chain.doFilter(request, response);
 	}
 
 	/**

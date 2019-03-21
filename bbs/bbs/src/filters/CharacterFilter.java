@@ -15,12 +15,12 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet Filter implementation class characterFilter
  */
 @WebFilter("*")
-public class characterFilter implements Filter {
+public class CharacterFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public characterFilter() {
+    public CharacterFilter() {
         // TODO Auto-generated constructor stub
     }
 
