@@ -70,7 +70,7 @@ public class replyServlet extends HttpServlet {
 	}
 
 
-	private void disagree(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void disagree(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String topicId=request.getParameter("topicid");
 		String replyId=request.getParameter("replyid");
 		Integer num=rb.disagree(topicId,replyId);
@@ -92,13 +92,7 @@ public class replyServlet extends HttpServlet {
 	 */
 	private void agree(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String topicId=request.getParameter("topicid");
-		String replyId=request.getParameter("replyid");
-		
-		HttpSession session = request.getSession();
-		if(session.getAttribute("user")==null) {
-			request.setAttribute("msg", "ÇëÏÈµÇÂ¼");
-			response.sendRedirect("/pages/login.jsp");
-		}
+		String replyId=request.getParameter("replyid");		
 		Integer num=rb.agree(topicId,replyId);
 		Integer count=rb.selectAgreeCount(replyId);
 		System.out.println(count);
@@ -246,7 +240,6 @@ public class replyServlet extends HttpServlet {
 			rb.delReply(reply);
 			response.sendRedirect("topic?flag=topicDetail&topicid="+topicid);
 		} catch (BizException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			request.setAttribute("msg", e.getMessage());
 			request.getRequestDispatcher("pages/detail.jsp").forward(request, response);

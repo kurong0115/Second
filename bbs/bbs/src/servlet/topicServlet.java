@@ -491,7 +491,7 @@ public class topicServlet extends HttpServlet {
 		try {
 			rb.answer(topic,user.getEmail());
 			System.out.println("回帖后的"+rb.getUserinfo());
-			if(rb.getUserinfo().getTime()>userinfo.getTime()) {
+			if(rb.getFlag()==false) {
 				request.getSession().setAttribute("userinfo", rb.getUserinfo());
 				response.getWriter().write("<script language='javascript'>"
 						+ "alert('请注意用词!!!');"
@@ -582,15 +582,17 @@ public class topicServlet extends HttpServlet {
 		try {	
 			tb.post(topic,user.getEmail());
 			System.out.println("发帖后的"+tb.getUserinfo());
-			if(tb.getUserinfo().getTime()>userinfo.getTime()) {
+			if(tb.getFlag()==false) {								//tb.getUserinfo().getTime()>userinfo.getTime()
 				request.getSession().setAttribute("userinfo", tb.getUserinfo());
 				response.getWriter().write("<script language='javascript'>"
 						+ "alert('请注意用词!!!');"
 						+ "window.location='topic?flag=topicList&boardid="+topic.getBoardid()+"'"
 						+ "</script>");
 			}else {
+				request.getSession().setAttribute("userinfo", tb.getUserinfo());
 				response.sendRedirect("topic?flag=topicList&boardid="+topic.getBoardid());
 			}	
+			
 		} catch (BizException e) {
 			e.printStackTrace();
 			request.setAttribute("msg", e.getMessage());

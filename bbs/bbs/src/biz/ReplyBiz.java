@@ -1,6 +1,8 @@
 package biz;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +22,8 @@ public class ReplyBiz {
 	UserDao ud=new UserDao();
 	StopDao sd=new StopDao();
 	private  UserInfo info;
+	private Boolean flag = true;
+	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public UserInfo getUserinfo() {
 		return info;
@@ -27,6 +31,13 @@ public class ReplyBiz {
 
 	public void setUserinfo(UserInfo info) {
 		this.info = info;
+	}
+	
+	public Boolean getFlag() {
+		return flag;
+	}
+	public void setFlag(Boolean flag) {
+		this.flag = flag;
 	}
 	/**
 	 * 回帖分页
@@ -57,7 +68,7 @@ public class ReplyBiz {
 			}
 			if(userinfo.getEndtime()!=null&&userinfo.getEndtime().after(new Timestamp(System.currentTimeMillis()))) {
 				System.out.println("您已被禁言");
-				throw new BizException("您已被禁言,禁言结束时间为"+userinfo.getEndtime());			
+				throw new BizException("您已被禁言,禁言结束时间为"+sdf.format(new Date(userinfo.getEndtime().getTime())));		
 			}
 		}
 		this.setUserinfo(userinfo);
@@ -74,8 +85,10 @@ public class ReplyBiz {
 		if(!beforeContent.equals(afterContent)) {
 			ud.addTime(topic.getUid());
 			info.setTime(info.getTime()+1);
+			flag=false;
+		}else {
+			flag=true;
 		}
-		
 		//每发三次脏话禁言一天
 		if(info.getTime()==3) {
 			ud.stopPost(userinfo.getUid());
