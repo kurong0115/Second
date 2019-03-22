@@ -109,6 +109,9 @@ public class topicServlet extends HttpServlet {
 		case "allHostDel":
 			allHostDel(request, response);
 			break;
+		case "myTopic":
+			myTopic(request, response);
+			break;
 		default:
 			break;
 		}
@@ -339,6 +342,23 @@ public class topicServlet extends HttpServlet {
 		
 		
 		
+	}
+	//用户的帖子
+	private void myTopic(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Integer uid = Integer.parseInt(request.getParameter("uid"));
+		topic .setUid(uid);
+		
+		List<Topic> personTopic;
+		try {
+			personTopic = tb.myTopic(topic);
+			HttpSession session=request.getSession();
+			session.setAttribute("personTopic", personTopic);
+			request.getRequestDispatcher("/pages/myTopic.jsp").forward(request, response);
+		} catch (BizException e) {
+			e.printStackTrace();
+			request.setAttribute("msg", e.getMessage());
+			request.getRequestDispatcher("/pages/myTopic.jsp").forward(request, response);
+		}
 	}
 
 	//首页

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ include file="header.jsp"%>
 
 
@@ -12,7 +12,7 @@
 		function sendcode(){
 			if( $("#email").val() != null ){				
 				$.ajax({
-					url:"/bbs/bbsUser?flag=sendcode",
+					url:"/bbs2/bbsUser?flag=sendcode",
 					method:"post",
 					dataType:"text",
 					data:{"email":$("#email").val()},
@@ -111,15 +111,15 @@
 	action="<%=request.getContextPath() %>/bbsUser" method="post">
 		<input type="hidden" name="flag" value="userReg">
 		<br/>用&nbsp;户&nbsp;名 &nbsp;
-			<INPUT class="input" tabIndex="1" type="text" maxLength="20" size="20" name="uName" oninput="isusername(this)" required="required">
+			<INPUT class="input" tabIndex="1" value="${param.uName }" type="text" maxLength="20" size="20" name="uName" oninput="isusername(this)" required="required">
 			<font id="info" ></font>
 		<br/>密&nbsp;&nbsp;&nbsp;&nbsp;码 &nbsp;&nbsp;&nbsp;
-			<INPUT class="input" tabIndex="2" type="password" maxLength="20" size="20" name="uPass">
+			<INPUT class="input" tabIndex="2" value="${param.uPass }" type="password" maxLength="20" size="20" name="uPass">
 		<br/>重复密码&nbsp;
-			<INPUT class="input" tabIndex="3" type="password" maxLength="20" size="20" name="uPass1" oninput="isSamePwd()" required="required">
+			<INPUT class="input" tabIndex="3" value="${param.uPass1 }" type="password" maxLength="20" size="20" name="uPass1" oninput="isSamePwd()" required="required">
 			<font style="color: red;" id="samePwd"></font>
 		<br/>邮&nbsp;&nbsp;&nbsp;&nbsp;箱 &nbsp;&nbsp;&nbsp;
-			<INPUT class="input" tabIndex="4" type="email" maxLength="20" size="20" name="email" id="email" required="required" oninput="isEmail(this)" >
+			<INPUT class="input" tabIndex="4" value="${param.email }" type="email" maxLength="20" size="20" name="email" id="email" required="required" oninput="isEmail(this)" >
 			<a href="javascript:void(0)" onclick="sendcode()" style="display: none;" id="getCode">获取验证码</a>
 			<font style="color: red;" id="info2"></font>
 		<br/>验&nbsp;证&nbsp;码 &nbsp;

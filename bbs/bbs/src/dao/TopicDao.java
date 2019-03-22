@@ -13,6 +13,16 @@ import utils.Myutil;
 public class TopicDao {
 	
 	private JDBCHelp db=new JDBCHelp();
+	/**
+	 * 查询用户的帖子
+	 * @param topic
+	 * @return
+	 */
+	public List<Topic> findMyTopic(Topic topic) {
+		String sql = "select * from tbl_topic where uid = ?";
+		List<Map<String,Object>> executeQuery  = db.executeQuery(sql, topic.getUid());
+		return Myutil.ListMapToJavaBean(executeQuery, Topic.class);
+	}
 	
 	
 	/**

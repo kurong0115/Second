@@ -248,12 +248,11 @@ public class userServlet extends HttpServlet {
 		try {
 			ub.reg(user, code, regcode);
 			request.setAttribute("msg", "×¢²á³É¹¦");
-			request.getRequestDispatcher("/pages/reg.jsp").forward(request, response);
-			
+			request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 		} catch (BizException e) {
 			e.printStackTrace();
 			request.setAttribute("msg",e.getMessage() );
-			request.getRequestDispatcher("pages/login.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/reg.jsp").forward(request, response);
 		}
 		
 	}

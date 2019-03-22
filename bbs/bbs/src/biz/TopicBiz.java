@@ -143,6 +143,15 @@ public class TopicBiz {
 	}
 	
 	/**
+	 * 查询个人的帖子
+	 * @param topic
+	 * @return
+	 */
+	public List<Topic> myTopic(Topic topic) throws BizException {
+		List<Topic> myTopic = td.personTopTopic(topic);
+		return myTopic;
+	}
+	/**
 	 * 每个板块前10的热帖
 	 * @param topic
 	 * @return
@@ -153,7 +162,6 @@ public class TopicBiz {
 		
 		return findHostTopic;
 	}
-	
 	/**
 	 * 论坛热帖
 	 * @return

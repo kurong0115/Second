@@ -135,7 +135,6 @@ public class Myutil {
  */
 	public static String sendemail(String email) {
 		// 随机生成验证码
-	
 		String code = String.valueOf((int)(Math.random()*99999)+10000);
 		// 以下变量为用户根据自己的情况设置
 		String smtphost = ConfigEmail.getInstance().getProperty("smtphost"); // 发送邮件服务器

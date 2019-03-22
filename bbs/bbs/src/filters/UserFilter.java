@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class userFilter
  */
-@WebFilter("/pages/personal.jsp")
+@WebFilter(urlPatterns= {"/pages/personal.jsp","/pages/pwdChange.jsp"})
 public class UserFilter implements Filter {
 
     /**
