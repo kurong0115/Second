@@ -21,13 +21,13 @@ import utils.Myutil;
 
 
 @WebServlet("/bbsUser")
-public class UserServlet extends HttpServlet {
+public class userServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	UserBiz ub=new UserBiz();
 	
 	
-    public UserServlet() {
+    public userServlet() {
         super();
     }
 

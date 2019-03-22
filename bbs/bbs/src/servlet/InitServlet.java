@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import bean.Board;
 import bean.User;
-import bean.collect;
 import biz.BizException;
 import biz.BoardBiz;
 import biz.CollectBiz;
@@ -34,10 +33,15 @@ public class InitServlet extends HttpServlet {
 		try {
 			HttpSession session = request.getSession();
 			
-			User user = (User) session.getAttribute("user");
+			if(session.getAttribute("user")!=null) {
+				User user = (User) session.getAttribute("user");
+				int collectTotal=cb.findAllCollect(user);
+				session.setAttribute("collectTotal", collectTotal);
+			}
+			
 			allBoard = bb.findAllBoard();
-			int collectTotal=cb.findAllCollect(user);
-			session.setAttribute("collectTotal", collectTotal);
+			
+			
 			session.setAttribute("boardMap", allBoard);
 			request.getRequestDispatcher("pages/show.jsp").forward(request, response);
 		} catch (BizException e) {

@@ -36,6 +36,7 @@
 		});
 	}   
 	
+	//回帖点赞
 	function agree(topicid,replyid){
 		$(function(){
 			$.ajax({
@@ -54,6 +55,7 @@
 		})
 	}
 	
+	//取消点赞
 	function disagree(topicid,replyid){
 		$(function(){
 			$.ajax({

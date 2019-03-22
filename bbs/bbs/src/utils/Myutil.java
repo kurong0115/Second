@@ -145,7 +145,7 @@ public class Myutil {
 		String to = email; // 接受人邮件地址
 		String subject = "BBS"; // 邮件标题
 		// 邮件内容
-		String body = "亲爱的用户，这是来自BBS的密码重置验证码：" + code + "请注意保护好个人信息！";
+		String body = "亲爱的用户，这是来自BBS的密码重置验证码：" + code + "为防止信息泄露,请注意保护好个人信息！";
 		// 以下为发送程序，用户无需改动
 		try {
 			// 初始化Properties类对象
@@ -200,7 +200,8 @@ public class Myutil {
 		String to = email; // 接受人邮件地址
 		String subject = "BBS"; // 邮件标题
 		// 邮件内容
-		String body = "亲爱的用户,你已被禁言,禁言截止时间" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(time.getTime())) + "请注意保护好个人信息！";
+		String body = "亲爱的用户,你已被禁言,禁言截止时间" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(time.getTime())) + 
+				"为防止信息泄露,请注意保护好个人信息！";
 		// 以下为发送程序，用户无需改动
 		try {
 			// 初始化Properties类对象

@@ -1,6 +1,8 @@
 package biz;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +20,8 @@ public class TopicBiz {
 	UserDao ud=new UserDao();
 	StopDao sd=new StopDao();
 	private  UserInfo info;
+	private Boolean flag = true;
+	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public UserInfo getUserinfo() {
 		return info;
@@ -26,6 +30,12 @@ public class TopicBiz {
 		this.info = info;
 	}
 	
+	public Boolean getFlag() {
+		return flag;
+	}
+	public void setFlag(Boolean flag) {
+		this.flag = flag;
+	}
 	/**
 	 * 分页
 	 * @param topic
@@ -33,8 +43,13 @@ public class TopicBiz {
 	 * @throws BizException 
 	 */
 	public PageBean<Topic> findPageBean(Topic topic) throws BizException {
+
 		PageBean<Topic> findPageBean = td.findPageBean(topic);
-		
+			
+		if(findPageBean==null) {
+			throw new BizException("服务器繁忙，请稍后再试");
+		}
+
 		return findPageBean;
 	}
 
@@ -57,7 +72,7 @@ public class TopicBiz {
 			}
 			if(userinfo.getEndtime()!=null&&userinfo.getEndtime().after(new Timestamp(System.currentTimeMillis()))) {
 				System.out.println("您已被禁言");
-				throw new BizException("您已被禁言,禁言结束时间为"+userinfo.getEndtime());			
+				throw new BizException("您已被禁言,禁言结束时间为"+sdf.format(new Date(userinfo.getEndtime().getTime())));
 			}
 		}
 		this.setUserinfo(userinfo);
@@ -76,6 +91,9 @@ public class TopicBiz {
 		if(!beforeTitle.equals(afterTitle)||!beforeContent.equals(afterContent)) {
 			ud.addTime(topic.getUid());
 			info.setTime(info.getTime()+1);
+			flag=false;
+		}else {
+			flag=true;
 		}
  		
 		//每发三次脏话禁言一天
