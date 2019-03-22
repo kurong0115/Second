@@ -45,11 +45,6 @@ public class TopicBiz {
 	public PageBean<Topic> findPageBean(Topic topic) throws BizException {
 
 		PageBean<Topic> findPageBean = td.findPageBean(topic);
-			
-		if(findPageBean==null) {
-			throw new BizException("服务器繁忙，请稍后再试");
-		}
-
 		return findPageBean;
 	}
 
@@ -184,6 +179,21 @@ public class TopicBiz {
 		List<Topic> personTopTopic = td.personTopTopic(topic);
 		
 		return personTopTopic;
+	}
+	
+	/**
+	 * 查找帖子
+	 * @param topicname
+	 * @return 
+	 * @throws BizException 
+	 */
+	public List<Topic> searchTopic(String topicname) throws BizException {
+		if(topicname==null || topicname.isEmpty()) {
+			throw new BizException("帖名不能为空");
+		}
+		
+		return  td.serachTopic(topicname);
+		
 	}
 	
 	

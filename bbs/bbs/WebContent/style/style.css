@@ -2,6 +2,7 @@ BODY {
 	FONT-SIZE: 12px;
 	width: 100%;
 	margin: auto;
+	padding: auto;
 }
 A {
 	COLOR: #2f5fa1; TEXT-DECORATION: none
@@ -30,7 +31,7 @@ TEXTAREA {
 	BORDER-RIGHT: #fff 1px solid; BORDER-TOP: #fff 1px solid;  BORDER-LEFT: #fff 1px solid; WIDTH: 99.98%; BORDER-BOTTOM: #fff 1px solid
 }
 .h {
-	PADDING-RIGHT: 7px; PADDING-LEFT: 7px; BACKGROUND: #e0f0f9; PADDING-BOTTOM: 3px; COLOR: #004c7d; PADDING-TOP: 5px; BORDER-BOTTOM: #dbecf4 4px solid; TEXT-ALIGN: left;line-height: 40px;
+	PADDING-RIGHT: 7px; PADDING-LEFT: 7px; BACKGROUND: #e0f0f9; COLOR: #004c7d; PADDING-TOP: 5px; TEXT-ALIGN: left;line-height: 40px;
 }
 .tr1 TH {
 	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-WEIGHT: normal; PADDING-BOTTOM: 5px; VERTICAL-ALIGN: top; PADDING-TOP: 5px; TEXT-ALIGN: left; BORDER-RIGHT: #d4eff7 1px solid
@@ -58,4 +59,26 @@ TEXTAREA {
 }
 .tipad {
 	PADDING-RIGHT: 0px; BORDER-TOP: #d4eff7 1px solid; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 10px 0px 0px; PADDING-TOP: 5px
+}
+.search-area{
+	background-color: #e0f0f9;
+	height: 50px;
+}
+.search-area .search-field{
+	width: 60%;
+	height: 35px;
+	border:2px solid #76b0be;
+	border-radius: 20px;
+	text-align: center;
+	margin-left: 15%;
+
+}
+.search-area .search-button{
+	width: 10%;
+	height: 35px;
+	border-radius: 20px;
+	text-align: center;
+	border:2px solid #76b0be;
+	background-color: #76b0be;
+	color:#fff;
 }

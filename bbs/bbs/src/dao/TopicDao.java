@@ -255,6 +255,60 @@ public class TopicDao {
 		return Myutil.ListMapToJavaBean(executeQuery, Topic.class);
 				
 	}
+
+	/**
+	 * 查找帖子
+	 * @param topicname
+	 * @return 
+	 */
+	public List<Topic> serachTopic(String topicname) {
+		String sql="SELECT\n" + 
+				"  *\n" + 
+				"FROM\n" + 
+				"  (SELECT\n" + 
+				"    a.topicid,\n" + 
+				"    title,\n" + 
+				"    content,\n" + 
+				"    publishtime,\n" + 
+				"    modifytime,\n" + 
+				"    uid,\n" + 
+				"    uname,\n" + 
+				"    a.boardid,\n" + 
+				"    c.boardname,\n" + 
+				"    total AS replycount\n" + 
+				"  FROM\n" + 
+				"    (SELECT\n" + 
+				"      topicid,\n" + 
+				"      title,\n" + 
+				"      content,\n" + 
+				"      DATE_FORMAT(\n" + 
+				"        publishtime,\n" + 
+				"        '%Y-%m-%d %H:%i:%s'\n" + 
+				"      ) AS publishtime,\n" + 
+				"      DATE_FORMAT(modifytime, '%Y-%m-%d %H:%i:%s') AS modifytime,\n" + 
+				"      tbl_user.uid,\n" + 
+				"      uname,\n" + 
+				"      boardid\n" + 
+				"    FROM\n" + 
+				"      tbl_topic\n" + 
+				"      INNER JOIN tbl_user\n" + 
+				"        ON tbl_topic.uid = tbl_user.uid\n" + 
+				"    WHERE title LIKE \'%"+topicname+"%\' \n" + 
+				"    ORDER BY modifytime DESC) a\n" + 
+				"    LEFT JOIN\n" + 
+				"      (SELECT\n" + 
+				"        topicid,\n" + 
+				"        COUNT(*) AS total\n" + 
+				"      FROM\n" + 
+				"        tbl_reply\n" + 
+				"      GROUP BY topicid) b\n" + 
+				"      ON a.topicid = b.topicid\n" + 
+				"    LEFT JOIN tbl_board c\n" + 
+				"      ON a.boardid = c.boardid\n" + 
+				"  ORDER BY total DESC) d";
+		List<Map<String,Object>> executeQuery = db.executeQuery(sql);
+		return Myutil.ListMapToJavaBean(executeQuery, Topic.class);
+	}
 	
 	
 }

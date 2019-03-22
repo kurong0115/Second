@@ -11,7 +11,15 @@
 	
 
 		
-
+	<div class="search-area">
+		<form action="<%=request.getContextPath() %>/topic" method="post">
+			<div class="control-group">
+				<input type="hidden" name="flag" value="search">
+				<input type="text" class="search-field" placeholder="输入帖名" name="topicname"/>
+				<input class="search-button" type="submit" value="搜索" >
+			</div>
+		</form>
+	</div>
 	<DIV class="t" >
 		
 		<!--       风云人物           -->
@@ -45,7 +53,7 @@
 		</TABLE>
 	
 	<!--       热帖           -->	
-		<TABLE cellSpacing="0" cellPadding="0" style="width: 15%;float: right;overflow: hidden;table-layout: fixed;" >		
+		<TABLE cellSpacing="0" cellPadding="0" style="width: 21%;float: right;overflow: hidden;table-layout: fixed;" >		
 			<TR>
 				<TH class="h" style="WIDTH: 100%;text-align: center;" colSpan="5"><SPAN>热帖排行</SPAN></TH>
 			</TR>
@@ -74,7 +82,7 @@
 
 		</TABLE>
 	<!--       主题           -->
-		<TABLE cellSpacing="0" cellPadding="0" style="width: 71%;border-left: 1px solid #a6cbe7;border-right:1px solid #a6cbe7;margin-right: 0px; ">
+		<TABLE cellSpacing="0" cellPadding="0" style="width: 65%;border-left: 1px solid #a6cbe7;border-right:1px solid #a6cbe7;margin-right: 0px; ">
 			<TR class="tr2" align="center">
 				<TD colSpan="2">论坛</TD>
 				

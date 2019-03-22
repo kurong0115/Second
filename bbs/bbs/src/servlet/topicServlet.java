@@ -100,11 +100,39 @@ public class topicServlet extends HttpServlet {
 		case "hostDel":
 			hostDel(request, response);
 			break;
+		case "search":
+			search(request, response);
+			break;
 		default:
 			break;
 		}
 	}
 
+	
+
+	/**
+	 * ≤È’“Ã˚◊”
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String topicname = request.getParameter("topicname");
+		
+		try {
+			List<Topic> searchTopic = tb.searchTopic(topicname);
+			HttpSession session=request.getSession();
+			session.setAttribute("searchTopic", searchTopic);
+			request.getRequestDispatcher("/pages/searchTopic.jsp").forward(request, response);
+		} catch (BizException e) {
+			
+			e.printStackTrace();
+			request.setAttribute("msg", e.getMessage());
+			request.getRequestDispatcher("/pages/searchTopic.jsp").forward(request, response);
+		}
+		
+	}
 
 
 
