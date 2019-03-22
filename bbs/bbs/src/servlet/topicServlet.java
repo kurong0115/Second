@@ -79,12 +79,6 @@ public class topicServlet extends HttpServlet {
 		case "topicHostList":
 			topicHostList(request, response);
 			break;
-		case "allTopicTopList":
-			allTopicTopList(request, response);
-			break;
-		case "personTop":
-			personTop(request, response);
-			break;
 		case "personTopTopic":
 			personTopTopic(request, response);
 			break;
@@ -106,30 +100,11 @@ public class topicServlet extends HttpServlet {
 		case "hostDel":
 			hostDel(request, response);
 			break;
-		case "allHostDel":
-			allHostDel(request, response);
-			break;
 		default:
 			break;
 		}
 	}
-	
-	//论坛热帖删除
-	private void allHostDel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int topicid = Integer.parseInt(request.getParameter("topicid")) ;
-		topic.setTopicid(topicid);
-		
-		 try {
-			tb.delTopic(topic);
-			request.setAttribute("msg", "删除成功");
-			allTopicTopList(request, response);
-		} catch (BizException e) {
-			e.printStackTrace();
-			request.setAttribute("msg", e.getMessage());
-			request.getRequestDispatcher("/pages/allHostList.jsp").forward(request, response);
-		}
-		
-	}
+
 
 
 
@@ -262,45 +237,6 @@ public class topicServlet extends HttpServlet {
 		
 	}
 
-	//风云人物
-	private void personTop(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<User> personTop;
-		try {
-			personTop = tb.personTop();
-			HttpSession session=request.getSession();
-			session.setAttribute("personTop", personTop);
-			
-			request.getRequestDispatcher("/pages/personTop.jsp").forward(request, response);
-		} catch (BizException e) {
-			
-			e.printStackTrace();
-			request.setAttribute("msg", e.getMessage());
-			request.getRequestDispatcher("/pages/personTop.jsp").forward(request, response);
-		}
-		
-		
-		
-	}
-
-	//论坛热帖
-	private void allTopicTopList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Topic> findAllHostTopic = null;
-		try {
-			findAllHostTopic = tb.findAllHostTopic();
-			HttpSession session=request.getSession();
-			session.setAttribute("pagebean", findAllHostTopic);
-			
-			request.getRequestDispatcher("/pages/allHostList.jsp").forward(request, response);
-		} catch (BizException e) {
-
-			e.printStackTrace();
-			request.setAttribute("msg", e.getMessage());
-			request.getRequestDispatcher("/pages/allHostList.jsp").forward(request, response);
-		}
-		
-		
-		
-	}
 
 	//每个板块前10的热帖
 	private void topicHostList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

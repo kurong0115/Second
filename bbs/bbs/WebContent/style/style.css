@@ -1,6 +1,7 @@
 BODY {
 	FONT-SIZE: 12px;
 	width: 100%;
+	margin: auto;
 }
 A {
 	COLOR: #2f5fa1; TEXT-DECORATION: none
@@ -26,7 +27,7 @@ TEXTAREA {
 	BORDER-RIGHT: #a6cbe7 1px solid; BORDER-TOP: #a6cbe7 1px solid; MARGIN: 0px auto 8px; BORDER-LEFT: #a6cbe7 1px solid; BORDER-BOTTOM: #a6cbe7 1px solid
 }
 .t TABLE {
-	BORDER-RIGHT: #fff 1px solid; BORDER-TOP: #fff 1px solid; MARGIN: 0px auto; BORDER-LEFT: #fff 1px solid; WIDTH: 99.98%; BORDER-BOTTOM: #fff 1px solid
+	BORDER-RIGHT: #fff 1px solid; BORDER-TOP: #fff 1px solid;  BORDER-LEFT: #fff 1px solid; WIDTH: 99.98%; BORDER-BOTTOM: #fff 1px solid
 }
 .h {
 	PADDING-RIGHT: 7px; PADDING-LEFT: 7px; BACKGROUND: #e0f0f9; PADDING-BOTTOM: 3px; COLOR: #004c7d; PADDING-TOP: 5px; BORDER-BOTTOM: #dbecf4 4px solid; TEXT-ALIGN: left;line-height: 40px;

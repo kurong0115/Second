@@ -133,7 +133,7 @@ public class TopicDao {
 	}
 	
 	/**
-	 * 每个板块前10的热帖
+	 * 每个板块前13的热帖
 	 * @param topic
 	 * @return
 	 */
@@ -163,7 +163,7 @@ public class TopicDao {
 		sql.append(" select * from ( select * from (select a.topicid,title,content,publishtime,modifytime,uid,uname,a.boardid,c.boardname, total as replycount ");
 		sql.append(" from ( select topicid,title,content,date_format(publishtime,'%Y-%m-%d %H:%i:%s') as publishtime,date_format(modifytime,'%Y-%m-%d %H:%i:%s') as  modifytime,  tbl_user.uid,  uname,boardid ");
 		sql.append(" from tbl_topic  inner join tbl_user on tbl_topic.uid=tbl_user.uid order by modifytime desc ) a ");
-		sql.append(" left join  (select topicid, count(*) as total from tbl_reply group by topicid) b on a.topicid=b.topicid LEFT JOIN tbl_board c  ON a.boardid=c.boardid  order by total desc )  d ) e limit 0,10");
+		sql.append(" left join  (select topicid, count(*) as total from tbl_reply group by topicid) b on a.topicid=b.topicid LEFT JOIN tbl_board c  ON a.boardid=c.boardid  order by total desc )  d ) e limit 0,13");
 
 		
 		List<Map<String,Object>> executeQuery = db.executeQuery(sql.toString());
@@ -187,7 +187,7 @@ public class TopicDao {
 				"      SELECT uid,\n" + 
 				"      COUNT(uid) AS total FROM tbl_topic GROUP BY uid\n" + 
 				"    ) b\n" + 
-				"    ON a.uid = b.uid ) c order by total desc limit 0,10\n";
+				"    ON a.uid = b.uid ) c order by total desc limit 0,13\n";
 		
 		
 		List<Map<String,Object>> executeQuery = db.executeQuery(sql);
