@@ -18,7 +18,7 @@
 		<INPUT  tabIndex="2"  type="password"   class="easyui-textbox" data-options="iconCls:'icon-lock'" name="uPass" value="${param.uPass}">
 		<br/>
 		验证码 &nbsp;
-		<input class="easyui-textbox" tabindex="1" type="text" name="code">	
+		<input class="easyui-textbox" tabindex="3" type="text" name="code">	
 		<br/>
 		<img id="code" src="<%=request.getContextPath() %>/createCode.jsp" onclick="updateCode()" style="vertical-align: bottom;">
 		<a href="javascript:updateCode()">换一张</a>
