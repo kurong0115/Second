@@ -11,7 +11,7 @@ var path="<%=request.getContextPath()%>"
 	function sendcode(){
 		if( $("#email").val() != null ){				
 			$.ajax({
-				url:"/bbs/bbsUser?flag=sendcode",
+				url:"<%=request.getContextPath()%>/bbsUser?flag=sendcode",
 				method:"post",
 				dataType:"text",
 				data:{"email":$("#email").val()},
