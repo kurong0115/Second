@@ -16,6 +16,7 @@
 		    url:'<%=request.getContextPath()%>/bbsUser?flag=findUser',
 		    fitColumns:true,
 		    singleSelect:true,
+		    pagination:true,
 		    columns:[[
 				{field:'uid',title:'编号',width:50,halign:'center',align:'center'},
 				{field:'uname',title:'用户名',width:100,halign:'center',align:'center'},
@@ -42,6 +43,6 @@
 	
 </script>
 <body>
-	<table id="dg" style="height: 490px;"></table>
+	<table id="dg"></table>
 </body>
 </html>

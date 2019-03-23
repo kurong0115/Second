@@ -15,4 +15,14 @@ public class WordDao {
 		String sql="insert into tbl_stop values(null,?)";
 		return db.executeUpdate(sql, word);
 	}
+	
+	/**
+	 * ÐÞ¸ÄÃô¸Ð´Ê
+	 * @param sname
+	 * @param sid 
+	 */
+	public void updateWord(String sname, int sid) {
+		String sql="update  tbl_stop set sname=? where sid=?";
+		db.executeUpdate(sql, sname,sid);
+	}
 }

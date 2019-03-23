@@ -12,7 +12,8 @@
 	<script>$.messager.alert('提示',"${msg}");</script>
 </c:if>
 <DIV>
-	&gt;&gt;<B><a href="<%=request.getContextPath() %>/index.jsp">论坛首页</a></B>
+	&gt;&gt;<B><a href="<%=request.getContextPath() %>/index.jsp">论坛首页</a>&gt;&gt;
+	<a href="<%=request.getContextPath() %>/pages/personal.jsp">个人中心</a>&gt;&gt;我的帖子</B>
 </DIV>
 <br/>
 <!--      发布新帖        -->

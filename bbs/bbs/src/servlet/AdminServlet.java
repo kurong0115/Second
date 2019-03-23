@@ -124,6 +124,7 @@ public class AdminServlet extends HttpServlet {
 			ud.releaseAll();
 			session.setAttribute("admin", admin);
 			request.getRequestDispatcher("adminPages/admin.jsp").forward(request, response);
+			
 		}else {
 			request.setAttribute("msg", "用户名或密码错误");
 			request.getRequestDispatcher("adminPages/adminLogin.jsp").forward(request, response);

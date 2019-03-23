@@ -36,14 +36,14 @@ public class UserListener implements ServletContextListener, HttpSessionListener
     	@SuppressWarnings("unchecked")
 		HashMap<String, HttpSession> map=(HashMap<String, HttpSession>) event.getSession().getServletContext().getAttribute("userMap");
     	String name = event.getName();
-		System.out.println(name);
+
 		if(name.equals("user")){
 			User user= (User) event.getValue();
 			System.out.println(map);
 			if(map.get(user.getUname())!=null){
 				HttpSession session=map.get(user.getUname());
 				session.removeAttribute("user");
-//				session.setAttribute("msg","您的账号在其他机器上登录，您被迫下线");
+
 			}
 			map.put(user.getUname(),event.getSession());
 		}

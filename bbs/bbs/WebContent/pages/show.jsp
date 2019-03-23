@@ -15,7 +15,7 @@
 		<form action="<%=request.getContextPath() %>/topic" method="post">
 			<div class="control-group">
 				<input type="hidden" name="flag" value="search">
-				<input type="text" class="search-field" placeholder="输入帖名" name="topicname"/>
+				<input type="text" class="search-field" placeholder="输入帖名" name="topicname" required="required"/>
 				<input class="search-button" type="submit" value="搜索" >
 			</div>
 		</form>

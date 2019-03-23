@@ -160,11 +160,11 @@ public class userServlet extends HttpServlet {
 			ub.pwdchange(user,newpass,upass);
 			String msg = "修改成功,请重新登录";
 			request.setAttribute("msg", msg);
-			request.getRequestDispatcher("pages/personal.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/pwdChange.jsp").forward(request, response);
 		} catch (BizException e) {
 			e.printStackTrace();
 			request.setAttribute("msg",e.getMessage() );
-			request.getRequestDispatcher("pages/personal.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/pwdChange.jsp").forward(request, response);
 		}
 
 	}

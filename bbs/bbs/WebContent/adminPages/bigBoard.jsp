@@ -135,9 +135,11 @@
 					var path="<%=request.getContextPath()%>";
 					$.getJSON(path+"/topic?flag=updateBigBoard",rowData,function(data){
 						if(data==1){
-							$.messager.alert('提示','成功','info');	
-						}else if(data=0){
+							$.messager.alert('提示','成功','info');
+							$("#bigBoardList").datagrid('reload');
+						}else if(data==0){
 							$.messager.alert('提示','服务器繁忙','info');	
+							$("#bigBoardList").datagrid('reload');
 						}
 					},"text");
 				},

@@ -19,6 +19,7 @@ function selectAll(){
 		    url:'<%=request.getContextPath()%>/bbsUser?flag=findUserInfo',
 		    fitColumns:true,
 		    singleSelect:true,
+		    pagination:true,
 		    columns:[[
 				{field:'uid',title:'编号',width:100,halign:'center',align:'center'},
 				{field:'uname',title:'用户名',width:100,halign:'center',align:'center'},
@@ -121,6 +122,6 @@ function releaseById(url){
 
 </script>
 <body>
-	<table id="dg" style="height: 490px;"></table>
+	<table id="dg" ></table>
 </body>
 </html>

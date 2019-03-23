@@ -28,11 +28,35 @@ public class WordServlet extends HttpServlet {
 		case "add":
 			add(request, response);
 			break;
-
+		case "updateWord":
+			updateWord(request, response);
+			break;
 		default:
 			break;
 		}
 	}
+	
+	/**
+	 * ÐÞ¸ÄÃô¸Ð´Ê
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	private void updateWord(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String sname=request.getParameter("sname");
+		int sid = Integer.parseInt(request.getParameter("sid"));
+		
+		try {
+			wb.updateWord(sname,sid);
+			response.getWriter().write("1");
+		} catch (BizException e) {
+			
+			e.printStackTrace();
+			response.getWriter().write("0");
+		}
+		
+	}
+
 
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String word=request.getParameter("noword");

@@ -10,8 +10,8 @@
 
 <script type="text/javascript">
 
-var editFlag=undefined; //设置一个编辑标记
 
+var editFlag=undefined; //设置一个编辑标记
 function submitForm(){
 	$('#fm').form('submit', {   
 		url:"<%=request.getContextPath()%>/noword?flag=add",      
@@ -29,30 +29,75 @@ function submitForm(){
 	}); 
 }
 
-
-
-
 	$(function() {
+		
 		$('#dg').datagrid({
 		    url:'<%=request.getContextPath()%>/admin?flag=findAllWords',
-		    fitColumns:true,
-		    singleSelect:true,
 		    pagination:true,
-		    loadMsg:"正在加载数据。。。。",
-		    fit:true,
+			loadMsg:"正在加载数据。。。。",
+			rownumbers:false,
+			fit:true,
+			singleSelect:true,
+			nowrap:true,
+			fitColumns:true,
 		    toolbar:[
 				{
 					text:"添加敏感词",
 					iconCls:'icon-add',
 					handler:function(){
-						$("#dlg").dialog("open").dialog("center").dialog("setTitle","添加主板块");
+						$("#dlg").dialog("open").dialog("center").dialog("setTitle","添加敏感词");
+					}
+				},
+				{
+					text:"修改",
+					iconCls:'icon-edit',
+					handler:function(){
+						//选中一行编辑
+						var rows=$("#dg").datagrid('getSelections');
+						if(rows.length==1){  //选中一行的话触发事件
+							//如果当前状态为编辑状态，则退出编辑状态
+							if(editFlag!=undefined){
+								$("#dg").datagrid('endEdit',editFlag); //结束编辑
+								
+							}
+							if(editFlag==undefined){
+								var index=$("#dg").datagrid('getRowIndex',rows[0]); //获取选定行的索引
+								$("#dg").datagrid('beginEdit',index);  //开始编辑
+								editFlag=index;
+							}
+							
+						}
+					}
+				},
+				'-',
+				{
+					text:"保存",
+					iconCls:'icon-save',
+					handler:function(){
+						$("#dg").datagrid('endEdit',editFlag); //会触发onafterEdit事件，在哪里写更新代码
+						
+					}
+				},
+				'-',
+				{
+					text:"撤销",
+					iconCls:'icon-redo',
+					handler:function(){
+						editFlag=undefined;
+						$("#dg").datagrid('rejectChanges');
 					}
 				},
 				'-'
 			],
 		    columns:[[
 				{field:'sid',title:'编号',width:100,halign:'center',align:'center'},
-				{field:'sname',title:'敏感词',width:200,halign:'center',align:'center'},				
+				{field:'sname',title:'敏感词',width:200,halign:'center',align:'center',
+					editor:{ //设置其为了编辑
+						type:'validatebox', //设置编辑格式
+						options:{
+							required:true //设置编辑规则属性
+						}
+					}},				
 				{field:'delWord',title:'敏感词删除',width:100,formatter:delWord,halign:'center',align:'center'}
 		    ]],
 		    
@@ -61,11 +106,13 @@ function submitForm(){
 				editFlag=undefined;
 				
 				var path="<%=request.getContextPath()%>";
-				$.getJSON(path+"/topic?flag=updateBigBoard",rowData,function(data){
-					if(data.code==1){
+				$.getJSON(path+"/noword?flag=updateWord",rowData,function(data){
+					if(data==1){
 						$.messager.alert('提示','成功','info');	
-					}else if(data.code==0){
+						$("#dg").datagrid('reload');		
+					}else if(data==0){
 						$.messager.alert('提示','服务器繁忙','info');	
+						$("#dg").datagrid('reload');
 					}
 				},"text");
 			},

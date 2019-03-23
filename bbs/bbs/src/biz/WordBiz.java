@@ -22,4 +22,17 @@ public class WordBiz {
 		
 	}
 	
+	/**
+	 * 修改敏感词
+	 * @param sname
+	 * @param sid 
+	 * @throws BizException 
+	 */
+	public void updateWord(String sname, int sid) throws BizException {
+		if(sname==null || sname.isEmpty()) {
+			throw new BizException("敏感词不能为空");
+		}
+		wd.updateWord(sname,sid);
+	}
+	
 }
